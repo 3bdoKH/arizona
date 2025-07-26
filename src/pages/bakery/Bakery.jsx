@@ -21,6 +21,18 @@ const bakeryImages = [
     'IMG-20250721-WA0172.jpg',
     'IMG-20250721-WA0173.jpg',
     'IMG-20250721-WA0174.jpg',
+    'IMG-20250726-WA0003.jpg',
+    'IMG-20250726-WA0004.jpg',
+    'IMG-20250726-WA0005.jpg',
+    'IMG-20250726-WA0006.jpg',
+    'IMG-20250726-WA0007.jpg',
+    'IMG-20250726-WA0008.jpg',
+    'IMG-20250726-WA0009.jpg',
+    'IMG-20250726-WA0010.jpg',
+    'IMG-20250726-WA0011.jpg',
+    'IMG-20250726-WA0012.jpg',
+    'IMG-20250726-WA0013.jpg',
+    'IMG-20250726-WA0014.jpg',
 ];
 
 const Bakery = () => {

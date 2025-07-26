@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import Header from '../components/header/Header';
 import Footer from '../components/footer/Footer';
@@ -18,6 +18,7 @@ const ProductDetail = () => {
   const { category, id } = useParams();
   const title = categoryTitles[category] || category;
   const imageUrl = `/images/${category}/${id}`;
+  const [modalOpen, setModalOpen] = useState(false);
 
   return (
     <>
@@ -40,6 +41,8 @@ const ProductDetail = () => {
             className="product-detail-img"
             src={imageUrl}
             alt={id}
+            onClick={() => setModalOpen(true)}
+            style={{ cursor: 'zoom-in' }}
           />
           <div className="product-detail-name">
           {
@@ -136,6 +139,14 @@ const ProductDetail = () => {
           </div>
         </div>
       </div>
+      {modalOpen && (
+        <div className="image-modal-overlay" onClick={() => setModalOpen(false)}>
+          <div className="image-modal-content" onClick={e => e.stopPropagation()}>
+            <button className="image-modal-close" onClick={() => setModalOpen(false)}>&times;</button>
+            <img src={imageUrl} alt={id} className="image-modal-img" />
+          </div>
+        </div>
+      )}
       <Footer />
     </>
   );

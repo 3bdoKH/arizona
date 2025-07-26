@@ -1,6 +1,8 @@
 import React from 'react'
 import './categories.css'   
+import { useNavigate } from 'react-router-dom';
 const Categories = () => {
+    const navigate = useNavigate();
     const categories = [
         {
             id : 1,
@@ -58,12 +60,16 @@ const Categories = () => {
             <div className="categories-grid">
                 {
                     categories.map((category) => (
-                        <div className="category-item" key={category.id}>
+                        <div className="category-item" key={category.id} onClick={() => navigate(category.link)}>
                             <a href={category.link}>
                                 <img src={category.image} alt={category.name} />
                             </a>
-                            <p>{category.description}</p>
-                            <h3>{category.name}</h3>
+                            <div className="overlay"></div>
+                            <div className="info">
+                                <h2>{category.name}</h2>
+                                <p>{category.description}</p>
+                                <button onClick={() => navigate(category.link)}>المزيد</button>
+                            </div>
                         </div>
                     ))
                 }

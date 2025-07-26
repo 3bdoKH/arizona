@@ -60,9 +60,7 @@ const gatooImages = [
   'WhatsApp Image 2025-07-21 at 14.13.40_93b0d85b.jpg',
   'WhatsApp Image 2025-07-21 at 14.13.39_6defd1b2.jpg',
   'WhatsApp Image 2025-07-21 at 14.13.38_4420b64a.jpg',
-  'IMG-20250721-WA0059.jpg',
   'IMG-20250721-WA0017.jpg',
-  'IMG-20250721-WA0058.jpg',
   'IMG-20250721-WA0047.jpg',
   'IMG-20250721-WA0050.jpg',
   'IMG-20250721-WA0035.jpg',
@@ -70,13 +68,10 @@ const gatooImages = [
   'IMG-20250721-WA0027.jpg',
   'IMG-20250721-WA0030.jpg',
   'IMG-20250721-WA0046.jpg',
-  'IMG-20250721-WA0061.jpg',
   'IMG-20250721-WA0043.jpg',
-  'IMG-20250721-WA0042.jpg',
   'IMG-20250721-WA0036.jpg',
   'IMG-20250721-WA0018.jpg',
   'IMG-20250721-WA0034.jpg',
-  'IMG-20250721-WA0041.jpg',
   'IMG-20250721-WA0051.jpg',
   'IMG-20250721-WA0021.jpg',
   'IMG-20250721-WA0025.jpg',
@@ -112,15 +107,30 @@ const Gatoo = () => {
               key={img}
               style={{ textDecoration: 'none' }}
             >
-              <div className="bakery-card">
+              <div className="bakery-card"
+              style={{
+                height:'400px',
+              }}
+              >
                 <img
+                style={{
+                  height:'400px',
+                  width:'100%',
+                  objectFit:'cover',
+                  borderRadius:'10px',
+                  border:'1px solid #ccc',
+                  boxShadow:'0 0 10px 0 rgba(0, 0, 0, 0.1)',
+                  transition:'all 0.3s ease',
+                  cursor:'pointer',
+                  '&:hover':{
+                    transform:'scale(1.05)',
+                    boxShadow:'0 0 20px 0 rgba(0, 0, 0, 0.2)',
+                  },
+                }}
                   className="bakery-card-img"
                   src={`/images/gatoo/${img}`}
                   alt={img}
                 />
-                <div className="bakery-card-title">
-                  تورته
-                </div>
               </div>
             </Link>
           ))}
