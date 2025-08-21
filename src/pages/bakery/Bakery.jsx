@@ -36,34 +36,37 @@ const bakeryImages = [
 ];
 
 const Bakery = () => {
+    React.useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
     return (
         <>
-        <Header />
-        <div className="bakery-gallery-bg">
-            <h2 className="bakery-gallery-title">مجموعه مميزه من مخبوزاتنا الشهيه</h2>
-            <div className="bakery-gallery-grid">
-            {bakeryImages.map((img, idx) => (
-                <Link
-                to={`/product/bakery/${encodeURIComponent(img)}`}
-                className="bakery-card-link"
-                key={img}
-                style={{ textDecoration: 'none' }}
-                >
-                <div className="bakery-card">
-                    <img
-                    className="bakery-card-img"
-                    src={`/images/bakery/${img}`}
-                    alt={img}
-                    />
-                    <div className="bakery-card-title">
-                    مخبوزات
-                    </div>
+            <Header />
+            <div className="bakery-gallery-bg">
+                <h2 className="bakery-gallery-title">مجموعه مميزه من مخبوزاتنا الشهيه</h2>
+                <div className="bakery-gallery-grid">
+                    {bakeryImages.map((img, idx) => (
+                        <Link
+                            to={`/product/bakery/${encodeURIComponent(img)}`}
+                            className="bakery-card-link"
+                            key={img}
+                            style={{ textDecoration: 'none' }}
+                        >
+                            <div className="bakery-card">
+                                <img
+                                    className="bakery-card-img"
+                                    src={`/images/bakery/${img}`}
+                                    alt={img}
+                                />
+                                <div className="bakery-card-title">
+                                    مخبوزات
+                                </div>
+                            </div>
+                        </Link>
+                    ))}
                 </div>
-                </Link>
-            ))}
             </div>
-        </div>
-        <Footer />
+            <Footer />
         </>
     )
 }

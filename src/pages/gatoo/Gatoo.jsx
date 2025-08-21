@@ -94,6 +94,9 @@ const gatooImages = [
 ];
 
 const Gatoo = () => {
+  React.useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   return (
     <>
       <Header />
@@ -108,25 +111,25 @@ const Gatoo = () => {
               style={{ textDecoration: 'none' }}
             >
               <div className="bakery-card"
-              style={{
-                height:'400px',
-              }}
+                style={{
+                  height: '400px',
+                }}
               >
                 <img
-                style={{
-                  height:'400px',
-                  width:'100%',
-                  objectFit:'cover',
-                  borderRadius:'10px',
-                  border:'1px solid #ccc',
-                  boxShadow:'0 0 10px 0 rgba(0, 0, 0, 0.1)',
-                  transition:'all 0.3s ease',
-                  cursor:'pointer',
-                  '&:hover':{
-                    transform:'scale(1.05)',
-                    boxShadow:'0 0 20px 0 rgba(0, 0, 0, 0.2)',
-                  },
-                }}
+                  style={{
+                    height: '400px',
+                    width: '100%',
+                    objectFit: 'cover',
+                    borderRadius: '10px',
+                    border: '1px solid #ccc',
+                    boxShadow: '0 0 10px 0 rgba(0, 0, 0, 0.1)',
+                    transition: 'all 0.3s ease',
+                    cursor: 'pointer',
+                    '&:hover': {
+                      transform: 'scale(1.05)',
+                      boxShadow: '0 0 20px 0 rgba(0, 0, 0, 0.2)',
+                    },
+                  }}
                   className="bakery-card-img"
                   src={`/images/gatoo/${img}`}
                   alt={img}
