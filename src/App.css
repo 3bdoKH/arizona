@@ -1,3 +1,71 @@
-.App{
+.App {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Floating contact buttons */
+.floating-contact {
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    z-index: 9999;
+}
+
+.floating-btn {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+    color: #fff;
+}
+
+.floating-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.22);
+}
+
+.floating-btn svg {
+    width: 28px;
+    height: 28px;
+    fill: currentColor;
+}
+
+.floating-btn.whatsapp {
+    background-color: #25D366;
+}
+
+.floating-btn.whatsapp:hover {
+    background-color: #1ebe57;
+}
+
+.floating-btn.phone {
+    background-color: #1f7ae0;
+}
+
+.floating-btn.phone:hover {
+    background-color: #1966ba;
+}
+
+@media (max-width: 600px) {
+    .floating-contact {
+        right: 14px;
+        bottom: 14px;
+        gap: 10px;
+    }
+
+    .floating-btn {
+        width: 52px;
+        height: 52px;
+    }
+
+    .floating-btn svg {
+        width: 26px;
+        height: 26px;
+    }
 }
