@@ -1,0 +1,248 @@
+# Arizona Bakery - .htaccess Configuration
+# Domain: arizona4sweet.online
+
+# ==================================================
+# REWRITE ENGINE
+# ==================================================
+RewriteEngine On
+
+# ==================================================
+# FORCE HTTPS (SSL) REDIRECT
+# ==================================================
+RewriteCond %{HTTPS} off
+RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# ==================================================
+# FORCE WWW OR NON-WWW (Choose one)
+# ==================================================
+# Force non-www (recommended for shorter domain)
+RewriteCond %{HTTP_HOST} ^www\.arizona4sweet\.online [NC]
+RewriteRule ^(.*)$ https://arizona4sweet.online/$1 [L,R=301]
+
+# ==================================================
+# REACT ROUTER - SPA ROUTING
+# ==================================================
+# Handle React Router routes - redirect all non-file requests to index.html
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_URI} !^/api/
+RewriteRule . /index.html [L]
+
+# ==================================================
+# SECURITY HEADERS
+# ==================================================
+<IfModule mod_headers.c>
+    # Security Headers
+    Header always set X-Content-Type-Options nosniff
+    Header always set X-Frame-Options DENY
+    Header always set X-XSS-Protection "1; mode=block"
+    Header always set Referrer-Policy "strict-origin-when-cross-origin"
+    Header always set Permissions-Policy "geolocation=(), microphone=(), camera=()"
+    
+    # Content Security Policy (adjust as needed)
+    Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.google.com https://maps.googleapis.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https: blob:; connect-src 'self' https:; frame-src 'self' https://www.google.com; object-src 'none'; base-uri 'self';"
+    
+    # Remove Server signature
+    Header unset Server
+    Header unset X-Powered-By
+</IfModule>
+
+# ==================================================
+# CACHING RULES
+# ==================================================
+<IfModule mod_expires.c>
+    ExpiresActive On
+    
+    # HTML files (short cache for dynamic content)
+    ExpiresByType text/html "access plus 1 hour"
+    
+    # CSS and JavaScript (longer cache)
+    ExpiresByType text/css "access plus 1 year"
+    ExpiresByType application/javascript "access plus 1 year"
+    ExpiresByType text/javascript "access plus 1 year"
+    
+    # Images (long cache)
+    ExpiresByType image/png "access plus 1 year"
+    ExpiresByType image/jpg "access plus 1 year"
+    ExpiresByType image/jpeg "access plus 1 year"
+    ExpiresByType image/gif "access plus 1 year"
+    ExpiresByType image/webp "access plus 1 year"
+    ExpiresByType image/svg+xml "access plus 1 year"
+    ExpiresByType image/x-icon "access plus 1 year"
+    
+    # Fonts
+    ExpiresByType font/woff2 "access plus 1 year"
+    ExpiresByType font/woff "access plus 1 year"
+    ExpiresByType font/ttf "access plus 1 year"
+    ExpiresByType font/eot "access plus 1 year"
+    
+    # Documents
+    ExpiresByType application/pdf "access plus 1 month"
+    
+    # Data/API responses
+    ExpiresByType application/json "access plus 1 hour"
+    ExpiresByType application/xml "access plus 1 hour"
+    ExpiresByType text/xml "access plus 1 hour"
+    
+    # Default
+    ExpiresDefault "access plus 1 month"
+</IfModule>
+
+# ==================================================
+# CACHE CONTROL HEADERS
+# ==================================================
+<IfModule mod_headers.c>
+    # Static assets - long cache
+    <FilesMatch "\.(css|js|png|jpg|jpeg|gif|webp|svg|woff2|woff|ttf|eot)$">
+        Header set Cache-Control "public, max-age=31536000, immutable"
+    </FilesMatch>
+    
+    # HTML files - short cache
+    <FilesMatch "\.(html|htm)$">
+        Header set Cache-Control "public, max-age=3600"
+    </FilesMatch>
+    
+    # JSON/XML files
+    <FilesMatch "\.(json|xml)$">
+        Header set Cache-Control "public, max-age=3600"
+    </FilesMatch>
+</IfModule>
+
+# ==================================================
+# GZIP COMPRESSION
+# ==================================================
+<IfModule mod_deflate.c>
+    # Compress HTML, CSS, JavaScript, Text, XML and fonts
+    AddOutputFilterByType DEFLATE application/javascript
+    AddOutputFilterByType DEFLATE application/rss+xml
+    AddOutputFilterByType DEFLATE application/vnd.ms-fontobject
+    AddOutputFilterByType DEFLATE application/x-font
+    AddOutputFilterByType DEFLATE application/x-font-opentype
+    AddOutputFilterByType DEFLATE application/x-font-otf
+    AddOutputFilterByType DEFLATE application/x-font-truetype
+    AddOutputFilterByType DEFLATE application/x-font-ttf
+    AddOutputFilterByType DEFLATE application/x-javascript
+    AddOutputFilterByType DEFLATE application/xhtml+xml
+    AddOutputFilterByType DEFLATE application/xml
+    AddOutputFilterByType DEFLATE font/opentype
+    AddOutputFilterByType DEFLATE font/otf
+    AddOutputFilterByType DEFLATE font/ttf
+    AddOutputFilterByType DEFLATE image/svg+xml
+    AddOutputFilterByType DEFLATE image/x-icon
+    AddOutputFilterByType DEFLATE text/css
+    AddOutputFilterByType DEFLATE text/html
+    AddOutputFilterByType DEFLATE text/javascript
+    AddOutputFilterByType DEFLATE text/plain
+    AddOutputFilterByType DEFLATE text/xml
+    AddOutputFilterByType DEFLATE application/json
+</IfModule>
+
+# ==================================================
+# MIME TYPES
+# ==================================================
+<IfModule mod_mime.c>
+    # Web fonts
+    AddType application/font-woff2 .woff2
+    AddType application/font-woff .woff
+    AddType application/vnd.ms-fontobject .eot
+    AddType font/truetype .ttf
+    AddType font/opentype .otf
+    
+    # Web app manifest
+    AddType application/manifest+json .webmanifest
+    AddType application/x-web-app-manifest+json .webapp
+    
+    # Media files
+    AddType image/webp .webp
+    AddType image/svg+xml .svg
+    
+    # Text files
+    AddType text/plain .txt
+</IfModule>
+
+# ==================================================
+# SEO FRIENDLY REDIRECTS
+# ==================================================
+# Redirect old URLs or common variations (add as needed)
+# Example: Redirect /home to /
+RewriteRule ^home/?$ / [R=301,L]
+
+# Redirect trailing slashes for files
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^([^/]+)/$ /$1 [R=301,L]
+
+# ==================================================
+# BLOCK ACCESS TO SENSITIVE FILES
+# ==================================================
+# Block access to source code and development files
+<FilesMatch "\.(env|log|sql|git|htaccess|htpasswd|ini|phps|fla|psd|log|sh)$">
+    Order Allow,Deny
+    Deny from all
+</FilesMatch>
+
+# Block access to hidden files and directories
+RedirectMatch 403 /\..*$
+
+# Block access to specific directories
+RedirectMatch 403 ^/?(src|node_modules|\.git)
+
+# ==================================================
+# ERROR PAGES
+# ==================================================
+ErrorDocument 404 /index.html
+ErrorDocument 403 /index.html
+ErrorDocument 500 /index.html
+
+# ==================================================
+# BROWSER CACHING OPTIMIZATION
+# ==================================================
+<IfModule mod_headers.c>
+    # Remove ETags
+    Header unset ETag
+    FileETag None
+    
+    # Add Vary headers for proper caching
+    <FilesMatch "\.(css|js|xml|gz|html)$">
+        Header append Vary: Accept-Encoding
+    </FilesMatch>
+</IfModule>
+
+# ==================================================
+# PERFORMANCE OPTIMIZATIONS
+# ==================================================
+# Enable KeepAlive
+<IfModule mod_headers.c>
+    Header set Connection keep-alive
+</IfModule>
+
+# Disable server signature
+ServerSignature Off
+
+# ==================================================
+# REDIRECT SPECIFIC PAGES (if needed)
+# ==================================================
+# Add any specific redirects for your bakery here
+# Example: Redirect old product pages
+# Redirect 301 /old-cakes /gatoo
+# Redirect 301 /old-cookies /cookies
+
+# ==================================================
+# MOBILE OPTIMIZATION
+# ==================================================
+# Add mobile-specific headers if needed
+<IfModule mod_headers.c>
+    # Optimize for mobile devices
+    <FilesMatch "\.(html|htm)$">
+        Header set X-UA-Compatible "IE=edge"
+    </FilesMatch>
+</IfModule>
+
+# ==================================================
+# CORS HEADERS (if needed for API or external resources)
+# ==================================================
+<IfModule mod_headers.c>
+    # Allow fonts from external domains
+    <FilesMatch "\.(ttf|ttc|otf|eot|woff|woff2|font.css)$">
+        Header set Access-Control-Allow-Origin "*"
+    </FilesMatch>
+</IfModule>
