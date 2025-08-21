@@ -21,7 +21,7 @@ const ProductDetail = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const whatsappNumber = '201014278883';
   const handleBuyNow = () => {
-    const message = `مرحبا، أود شراء هذا المنتج: الفئة: ${title} - الصورة: ${id}`;
+    const message = `مرحبا، أود شراء هذا المنتج: الفئة: ${title}`;
     const url = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
     window.open(url, '_blank');
   };
