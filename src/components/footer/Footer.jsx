@@ -27,7 +27,7 @@ const Footer = () => {
             </div>
             <div className="footer-bottom">
                 &copy; {new Date().getFullYear()} Arizona Bakery. All rights reserved.
-                Powered by <a href="https://www.emereld-marketing.online">EMERELD</a>
+                Powered by <a href="https://www.emereld-marketing.online">Adam's Agency</a>
             </div>
         </footer>
     )
